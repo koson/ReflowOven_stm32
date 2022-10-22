@@ -1,0 +1,26 @@
+#include "Encoder.h"
+
+
+void Encoder_Init(Encoder *enc, GPIO_TypeDef *GPIOx, uint16_t GPIO_PinA, uint16_t GPIO_PinB){
+
+	enc->pinA = GPIO_PinA;
+	enc->pinB = GPIO_PinB;
+	enc->aLastState = HAL_GPIO_ReadPin(GPIOx, enc->pinA);
+}
+
+int Encoder_Read(Encoder *enc, GPIO_TypeDef *GPIOx){
+
+	enc->aState = HAL_GPIO_ReadPin(GPIOx, enc->pinA);
+	if (enc->aState != enc->aLastState){
+		if (HAL_GPIO_ReadPin(GPIOx, enc->pinB) != enc->aState){
+			enc->aLastState = enc->aState;
+			return 1;
+		}
+		else {
+			enc->aLastState = enc->aState;
+			return -1;
+		}
+	}
+	return 0;
+
+}

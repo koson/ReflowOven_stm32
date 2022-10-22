@@ -58,11 +58,12 @@ typedef struct{
 void menuScreen_static();
 screenState menuScreen_dynamic(Encoder *encoder);
 void reflowScreen_static();
-screenState reflowScreen_dynamic(PIDController *pid, Profile *profile);
+screenState reflowScreen_dynamic(PIDController *pid, Profile *profile, Encoder *encoder);
 void profileScreen_static(Profile *profile);
 screenState profileScreen_dynamic(Profile *profile, Encoder *encoder);
 void pidScreen_static(PIDController *pid);
 screenState pidScreen_dynamic(PIDController *pid, Encoder *encoder);
+screenState finishScreen_dynamic(Encoder *encoder);
 /* USER CODE END EM */
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
