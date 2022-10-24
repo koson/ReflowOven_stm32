@@ -394,20 +394,69 @@ screenState menuScreen_dynamic(Encoder *encoder){
 	return MENU;
 }
 void reflowScreen_static(){
-
-
-}
-screenState reflowScreen_dynamic(PIDController *pid, Profile *profile, Encoder *encoder){
 	SSD1306_Clear();
 
 }
-void profileScreen_static(Profile *profile){
+screenState reflowScreen_dynamic(PIDController *pid, Profile *profile, Encoder *encoder){
+	static uint16_t time = 1;
+	if (HAL_GPIO_ReadPin(RB1_GPIO_Port, RB1_Pin) == GPIO_PIN_RESET){
+		SSD1306_Clear();
+		return FINISH;
+	}
+	HAL_Delay(1000);
 
+	// NEED TO IMPLIMENT SPI COMMUNICATION WITH THERMOCOUPLE
+	SSD1306_DrawPixel(time, time, SSD1306_COLOR_WHITE);
+	time++;
 
 }
+void profileScreen_static(Profile *profile){
+	char profileString[20];
+	SSD1306_Clear();
+	SSD1306_GotoXY (0,3);
+	sprintf(profileString, "  Soak Temp: %u", profile->soakTemp);
+	SSD1306_Puts (profileString, &Font_11x18, 1);
+	SSD1306_GotoXY (0, 24);
+	sprintf(profileString, "  Soak Time: %u", profile->soakTime);
+	SSD1306_Puts (profileString, &Font_11x18, 1);
+	SSD1306_GotoXY (0, 45);
+	sprintf(profileString, "  Soak Temp: %u", profile->peakTemp);
+	SSD1306_Puts (profileString, &Font_11x18, 1);
+	SSD1306_UpdateScreen();
+}
 screenState profileScreen_dynamic(Profile *profile, Encoder *encoder){
-
-
+	static uint16_t profileSelect = 3;
+	char profileString[20];
+	if (profileSelect == 3){
+		profile->soakTemp += Encoder_Read(encoder, GPIOB);
+		SSD1306_GotoXY (0,3);
+		sprintf(profileString, "> Soak Temp: %u", profile->soakTemp);
+		SSD1306_Puts (profileString, &Font_11x18, 1);
+		SSD1306_UpdateScreen();
+		if ((HAL_GPIO_ReadPin(RB1_GPIO_Port, RB1_Pin) == GPIO_PIN_RESET)){
+			profileSelect = 24;
+		}
+	}
+	if (profileSelect == 24){
+		profile->soakTime += Encoder_Read(encoder, GPIOB);
+		SSD1306_GotoXY (0,24);
+		sprintf(profileString, "> Soak Time: %u", profile->soakTime);
+		SSD1306_Puts (profileString, &Font_11x18, 1);
+		SSD1306_UpdateScreen();
+		if ((HAL_GPIO_ReadPin(RB1_GPIO_Port, RB1_Pin) == GPIO_PIN_RESET)){
+			profileSelect = 45;
+		}
+	}
+	if (profileSelect == 45){
+		profile->peakTemp += Encoder_Read(encoder, GPIOB);
+		SSD1306_GotoXY (0,45);
+		sprintf(profileString, "> Peak Temp: %u", profile->peakTemp);
+		SSD1306_Puts (profileString, &Font_11x18, 1);
+		SSD1306_UpdateScreen();
+		if ((HAL_GPIO_ReadPin(RB1_GPIO_Port, RB1_Pin) == GPIO_PIN_RESET)){
+			return MENU;
+		}
+	}
 }
 void pidScreen_static(PIDController *pid){
 

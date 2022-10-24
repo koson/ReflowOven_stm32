@@ -1,22 +1,43 @@
-00:07:08 **** Incremental Build of configuration Debug for project ReflowControllerFW ****
+18:28:50 **** Incremental Build of configuration Debug for project ReflowControllerFW ****
 make -j8 all 
-arm-none-eabi-gcc "../Core/Src/Encoder.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/Encoder.d" -MT"Core/Src/Encoder.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/Encoder.o"
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103x6 -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'profileScreen_static':
+../Core/Src/main.c:417:2: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  417 |  sprintf(profileString, "  Soak Temp: %u", profile->soakTemp);
+      |  ^~~~~~~
+../Core/Src/main.c:417:2: warning: incompatible implicit declaration of built-in function 'sprintf'
+../Core/Src/main.c:25:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   24 | #include "Encoder.h"
+  +++ |+#include <stdio.h>
+   25 | 
+../Core/Src/main.c: In function 'profileScreen_dynamic':
+../Core/Src/main.c:433:3: warning: incompatible implicit declaration of built-in function 'sprintf'
+  433 |   sprintf(profileString, "> Soak Temp: %u", profile->soakTemp);
+      |   ^~~~~~~
+../Core/Src/main.c:433:3: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/main.c:443:3: warning: incompatible implicit declaration of built-in function 'sprintf'
+  443 |   sprintf(profileString, "> Soak Time: %u", profile->soakTime);
+      |   ^~~~~~~
+../Core/Src/main.c:443:3: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/main.c:453:3: warning: incompatible implicit declaration of built-in function 'sprintf'
+  453 |   sprintf(profileString, "> Peak Temp: %u", profile->peakTemp);
+      |   ^~~~~~~
+../Core/Src/main.c:453:3: note: include '<stdio.h>' or provide a declaration of 'sprintf'
 ../Core/Src/main.c: In function 'reflowScreen_dynamic':
-../Core/Src/main.c:403:1: warning: control reaches end of non-void function [-Wreturn-type]
-  403 | }
+../Core/Src/main.c:412:1: warning: control reaches end of non-void function [-Wreturn-type]
+  412 | }
       | ^
 ../Core/Src/main.c: In function 'profileScreen_dynamic':
-../Core/Src/main.c:411:1: warning: control reaches end of non-void function [-Wreturn-type]
-  411 | }
+../Core/Src/main.c:460:1: warning: control reaches end of non-void function [-Wreturn-type]
+  460 | }
       | ^
 ../Core/Src/main.c: In function 'pidScreen_dynamic':
-../Core/Src/main.c:419:1: warning: control reaches end of non-void function [-Wreturn-type]
-  419 | }
+../Core/Src/main.c:468:1: warning: control reaches end of non-void function [-Wreturn-type]
+  468 | }
       | ^
 ../Core/Src/main.c: In function 'finishScreen_dynamic':
-../Core/Src/main.c:423:1: warning: control reaches end of non-void function [-Wreturn-type]
-  423 | }
+../Core/Src/main.c:472:1: warning: control reaches end of non-void function [-Wreturn-type]
+  472 | }
       | ^
 arm-none-eabi-gcc -o "ReflowControllerFW.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\ellis\OneDrive\Desktop\Projects\ReflowOven\workspace\ReflowOven_stm32\ReflowControllerFW\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ReflowControllerFW.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: ReflowControllerFW.elf
@@ -24,15 +45,8 @@ Finished building target: ReflowControllerFW.elf
 arm-none-eabi-size   ReflowControllerFW.elf 
 arm-none-eabi-objdump -h -S  ReflowControllerFW.elf  > "ReflowControllerFW.list"
    text	   data	    bss	    dec	    hex	filename
-  17344	     32	   2848	  20224	   4f00	ReflowControllerFW.elf
+  20320	    136	   2872	  23328	   5b20	ReflowControllerFW.elf
 Finished building: default.size.stdout
  
 Finished building: ReflowControllerFW.list
- 
-00:07:11 **** Incremental Build of configuration Debug for project ReflowControllerFW ****
-make -j8 all 
-arm-none-eabi-size   ReflowControllerFW.elf 
-   text	   data	    bss	    dec	    hex	filename
-  17344	     32	   2848	  20224	   4f00	ReflowControllerFW.elf
-Finished building: default.size.stdout
  

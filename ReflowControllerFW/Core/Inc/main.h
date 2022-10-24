@@ -44,7 +44,7 @@ typedef struct{
 	int soakTemp;
 	int soakTime;
 	int peakTemp;
-
+	int reachedPeakTemp;
 } Profile;
 /* USER CODE END ET */
 
